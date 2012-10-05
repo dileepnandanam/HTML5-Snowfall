@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+<body>
+
+<canvas id="rain" width="200px" height="200px" ></canvas>
+	<div>
+	<script type=text/javascript>
+		
+		
+		var canvasElement=document.getElementById("rain");
+		var canvasContext=canvasElement.getContext("2d");
+		var bx,by;
+		var dx=new Array();
+		var dy=new Array();
+		var vx=new Array();
+		var vy=new Array();
+
+
+		
+		var nod=1000;
+		function dropInit(index)
+		{
+			dx[index]=Math.random()*100;
+			dy[index]=Math.random()*-100;
+			vx[index]=0.1;
+			vy[index]=1.5-(Math.random()*-1);
+		}
+
+	
+		function springInit()
+		{	var i;
+			bx=100;
+			by=100;
+			for(i=0;i<nod;i=i+1)
+			{
+				dropInit(i);
+			}
+		
+		}
+		function draw()
+		{	canvasContext.clearRect(0,0,500,500);
+			canvasContext.fillStyle="#FF0000";
+			for(i=0;i<nod;i=i+1)
+			{
+				canvasContext.fillRect(Math.floor(dx[i]),Math.floor(dy[i]),2,2);
+			}
+			
+		}
+	
+		function springMove()
+		{
+			var i;
+			for(i=0;i<nod;i=i+1)
+			{
+				dx[i]+=vx[i];
+				dy[i]+=vy[i];
+				if(dy[i]>bx)
+				{
+					dropInit(i);
+				}
+			}
+			draw();
+			
+		}
+		
+		springInit();
+		setInterval(springMove,50);
+		
+	canvasContext.fillRect(0,0,20,20);			
+		
+	</script>
+</body>
+</html>
